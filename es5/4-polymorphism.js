@@ -14,6 +14,7 @@ function Student(name, grade) {
 }
 
 Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
 Student.prototype.__super__ = Person;
 
 Object.assign(Student.prototype, {
@@ -30,17 +31,18 @@ var james = new Student('James', 'A');
 tom.sayHelloTo(james);
 james.sayHelloTo(tom);
 
-// function GoodGradeStudent(name) {
-//   this.__super__.call(this, name, 'A');
-// }
-//
-// GoodGradeStudent.prototype = Object.create(Student.prototype);
-// GoodGradeStudent.prototype.__super__ = Student;
-//
-// GoodGradeStudent.prototype.sayHelloTo = function (other) {
-//   this.__super__.sayHelloTo.call(this, other);
-//   console.log('Very nice to meet you');
-// };
-//
-// var alice = new GoodGradeStudent('Alice');
-// alice.sayHelloTo(tom);
+function GoodGradeStudent(name) {
+  this.__super__.call(this, name, 'A');
+}
+
+GoodGradeStudent.prototype = Object.create(Student.prototype);
+GoodGradeStudent.prototype.constructor = GoodGradeStudent;
+GoodGradeStudent.prototype.__super__ = Student;
+
+GoodGradeStudent.prototype.sayHelloTo = function (other) {
+  this.__super__.sayHelloTo.call(this, other);
+  console.log('Very nice to meet you');
+};
+
+var alice = new GoodGradeStudent('Alice');
+alice.sayHelloTo(tom);

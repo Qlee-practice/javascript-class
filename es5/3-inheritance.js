@@ -13,6 +13,7 @@ function Student(name, grade) {
 }
 
 Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
 Student.prototype.__super__ = Person;
 
 Student.prototype.showGrade = function () {
